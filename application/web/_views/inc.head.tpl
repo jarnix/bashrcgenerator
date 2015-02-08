@@ -12,8 +12,38 @@
 
 {{include_metas}}
 
+{{if $version eq 1}}
+
 {{include_css}}
 {{include_scripts where='head'}}
+
+{{else}}
+
+<script>
+  less = {
+    env: "development",
+    logLevel: 2,
+    async: false,
+    fileAsync: false,
+    poll: 1000,
+    functions: {},
+    dumpLineNumbers: "comments",
+    relativeUrls: false,
+    globalVars: {
+      var1: '"string value"',
+      var2: 'regular value'
+    },
+    rootpath: ":/a.com/"
+  };
+</script>
+
+<link rel="stylesheet" type="text/css" href="/styles/reset.css">
+<link rel="stylesheet/less" type="text/css" href="/styles/default2.less">
+<link rel="stylesheet" type="text/css" href="/styles/tipsy/tipsy.css">
+
+<script src="/javascript/lesscss/less-1.2.2.min.js"></script>
+
+{{/if}}
 
 <!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>

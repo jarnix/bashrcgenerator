@@ -1,4 +1,4 @@
-{{include file="../../_views/before.tpl"}}
+{{include file="../../_views/before.tpl" version=1}}
 
 <header class="content">
 
@@ -102,4 +102,4 @@
 </footer>
 
 {{include file="../../_views/after1.tpl"}}
-{{include file="../../_views/after2.tpl"}}
+{{include file="../../_views/after2.tpl" version=1}}
