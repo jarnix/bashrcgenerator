@@ -11,9 +11,8 @@
 @visitedlinkcolor:#CCC;
 
 @textcolor:#eee;
-@lighttextcolor:#222;
-@brighttextcolor:#EEE;
-@headercolor: #222;
+@alttextcolor:#ff9;
+@headerbackgroundcolor: #222;
 @footercolor: transparent;
 @logocolor: #FFF;
 @logobgcolor: #ccc;
@@ -75,7 +74,7 @@ p {
 
 h1 {
 	color: @titlecolor;
-    font-size: 31.5px;
+    font-size: 36px;
     margin: 0px;
 	margin-bottom:10px;
     padding: 0;
@@ -113,7 +112,6 @@ header {
 
 #container {
     width:1130px;
-    
     text-align:left;
     margin:0 auto;
 }
@@ -134,8 +132,9 @@ header {
 }
 
 nav {
-    margin-top:20px;
-    margin-bottom:20px;
+    /* background-color:@headerbackgroundcolor; */
+    padding-top:20px;
+    padding-bottom:20px;
     clear:both;
     height:120px;
     
@@ -189,25 +188,50 @@ header {
 
 section {
 
+    color:@textcolor;
+    
+    .info {
+        margin-bottom:10px;
+        display:block;
+        color:@alttextcolor;
+    }
+
+
 	b {
 		display:block;
 		font-size:18px;
 		margin-bottom:6px;
 		margin-top:18px;
 		color:@littletitlecolor;
-
-		.buttons {
-			display:inline-block;
-			margin-left:10px;
-
-			a {
-				margin-right:10px;
-				margin-bottom:4px;
-			}
-
+		
+		i {
+		  background-color:white;
+		  color:black;
+		  font-size:20px;
+		  width:12px;
+		  line-height:20px;
+		  display:inline-block;
+		  margin-right:10px;
+		  padding:5px;
+		  font-style:normal;
+		  .rounded-corners();
 		}
+		
+
+		
 
 	}
+	
+	.buttons {
+        display:inline-block;
+        margin-top:10px;
+
+        a {
+            margin-right:10px;
+            margin-bottom:4px;
+        }
+
+    }
 
 	&.ad {
 		text-align:center;
@@ -216,8 +240,6 @@ section {
 	}
 
 	&.presets {
-
-		color:@brighttextcolor;
 
 		#presets li {
 			padding-left:10px;
@@ -317,7 +339,6 @@ section {
 		margin-bottom:5px;
 		text-align:center;
 		position:relative;
-		color:@lighttextcolor;
 	}
 
 	.item {
@@ -353,15 +374,10 @@ footer {
     background-color:@footercolor;
     padding-top:50px;
 
-    ul li {
-        color:@brighttextcolor;
-    }
-
     #copyright {
         margin-top:20px;
         text-align:center;
         font-size:11px;
-        color:@brighttextcolor;
     }
 }
 

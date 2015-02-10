@@ -46,7 +46,7 @@ var generator={
 		['charDash', '-', '-', '-'],
 		['charUnderscore', '_', '_', '_'],
 		['charSpace', 'space', ' ', ' '],
-		['charNewLine', 'new line', '\n', '\\n'],
+		['charNewLine', 'new line', '<br>', '\\n'],
 		['charDollar', '#/$', '$', '\\\\$']
 	],
 
@@ -157,7 +157,7 @@ var generator={
 			forcePlaceholderSize: true,
 			helper: "clone",
 	        revert: "invalid",
-	        opacity: 0.7,
+	        opacity: 1,
 	        out: generator.dragRender
 		}).disableSelection();
 
@@ -293,7 +293,7 @@ var generator={
 			}
 			else {
 				code=codes[i];
-				color=generator.defaultColor;
+				color=generator.defaultColorCode;
 			}
 			if(parts=generator.getCodePartsFromName(code)) {
 				html+='<span style="color:' + generator.convertColorToHtml(color) + '">' + parts[2] + '</span>';
@@ -306,7 +306,7 @@ var generator={
 
 	addPreset:function(codes, legend) {
 		generator.idPreset++;
-		$('#presets').append(generator.createPresetElement(generator.idPreset, codes, legend));
+        		$('#presets').append(generator.createPresetElement(generator.idPreset, codes, legend));
 	}
 }
 
