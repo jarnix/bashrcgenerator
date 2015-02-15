@@ -38,6 +38,7 @@
 </script>
 
 <link rel="stylesheet" type="text/css" href="/styles/reset.css">
+<link rel="stylesheet/less" type="text/css" href="/styles/iconic/iconic_fill.less">
 <link rel="stylesheet/less" type="text/css" href="/styles/default2.less">
 <link rel="stylesheet" type="text/css" href="/styles/tipsy/tipsy.css">
 

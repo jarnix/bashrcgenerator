@@ -52,20 +52,21 @@
 
             <section class="main">
 
-                <b><i>2</i>Your selection </b>
+                <b><i>2</i>Your selection</b>
                 <span class="info">Drag an element outside to remove it.</span>
 
                 <ul class="dd" id="wishlist"></ul>
 
+                <div id="palette" style="display:none;">
+                    <div id="palette-close" class="close"><span class="iconic x"></span></div>
+                    <div class="colors"></div>
+                    <div class="boldness"></div>
+                </div>
+                
                 <span class="buttons _cf">
                     <a class="small-button" id="removeEverythingBtn">remove everything</a>
                     <!-- <a class="small-button" id="sendBtn">send a link with this selection</a> -->
                 </span>
-
-                <div id="palette">
-                    <div class="colors"></div>
-                    <div class="boldness"></div>
-                </div>
 
             </section>
 

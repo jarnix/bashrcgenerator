@@ -26,6 +26,9 @@
 @blockbordercolor:#559;
 @listbordercolor:#225;
 
+@invertbackgroundcolor:#FFF;
+@inverttextcolor:#000;
+
 .border-box() {
 	 box-sizing: border-box;
      -webkit-box-sizing:border-box;
@@ -274,13 +277,40 @@ section {
 }
 
 #palette{
-    position:absolute;
-    background-color:@bodybackgroundcolor;
+    position:fixed;
+    width: 300px;
+    height: 300px;
+    top:50%;
+    left:50%;
+    margin-left:-150px;
+    margin-top:-150px;
+    background-color:@invertbackgroundcolor;
     z-index:1;
     padding:5px;
     .rounded-corners(5px);
     border:5px dotted #screencolor;
-    color:@textcolor;
+    color:@inverttextcolor;
+    
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(255,255,255,1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(255,255,255,1);
+    box-shadow: 0px 0px 10px 0px rgba(255,255,255,1);
+
+    .close {
+        background-color:@textcolor;
+        color:@bodybackgroundcolor;
+        width:30px;
+        height:30px;
+        right:0px;
+        top:0px;
+        position:absolute;
+        cursor:pointer;
+        
+        span {
+            font-size:18px;
+            display:block;
+            padding-top:4px;    
+        }
+    }
 
     .color {
         width:14px;

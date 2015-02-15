@@ -14,10 +14,10 @@ for i in {0..15}; do
 done
 #for i in 16 52 88 124 160 196 232; do
 for i in {0..6}; do
-    let "i = i*36 +16"
-    printf "\n\n %3b  " $i
+    let "k = i*36 +16"
+    printf "\n\n %3b  " $k
     for j in {0..35}; do
-        let "val = i+j"
+        let "val = k+j"
         echo -en "\033[48;5;${val}m  \033[m "
     done
 done
