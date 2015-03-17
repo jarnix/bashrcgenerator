@@ -49,7 +49,7 @@
         <div class="panel">
             <section class="sources">
                 <b><i>1</i>Available elements</b>
-                <span class="info">Drag and drop to your selection...</span>
+                <span class="info">Drag and drop to your selection.</span>
                 <ul id="source" class="source dd _cf">
 
                 </ul>
@@ -61,7 +61,7 @@
             <section class="main">
 
                 <b><i>2</i>Your selection</b>
-                <span class="info">Drag an element outside to remove it.</span>
+                <span class="info">Double-click to change the color and boldness.<br>Drag an element outside to remove it.</span>
 
                 <ul class="dd" id="wishlist"></ul>
 

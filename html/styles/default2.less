@@ -307,8 +307,9 @@ section {
     }
 
     .color {
-        width:24px;
-        height:12px;
+        width:20px;
+        height:10px;
+        border: 1px dotted #999;
         margin-right:1px;
         margin-bottom:1px;
         float:left;
@@ -322,7 +323,6 @@ section {
             width: 13px;
             height: 13px;
             padding: 0;
-            margin:0;
             vertical-align: bottom;
             position: relative;
             top: -2px;
@@ -332,7 +332,12 @@ section {
 
     label {
         display:inline-block;
-        margin-left:6px;
+        margin-right:10px;
+        
+        input {
+            margin-right:4px;
+        }
+        
     }
 }
 
@@ -537,136 +542,6 @@ footer {
 	-webkit-box-shadow:none;
 }
 
-
-form {
-
-	margin-top:16px;
-	margin-bottom:16px;
-
-	fieldset {
-		margin-bottom:12px;
-		.border-box();
-		width:100%;
-
-		&.max-width-1 {
-			max-width:400px;
-		}
-	}
-
-	.center {
-		text-align:center;
-	}
-
-	label {
-		color: #333;
-		display: block;
-		padding-bottom: 2px;
-		font-size: 12px;
-		text-transform: uppercase;
-		margin-bottom:4px;
-
-		&.fl_left {
-			float:left;
-		}
-
-		&.notice {
-			text-transform:none;
-			font-weight:normal;
-			font-size:10px;
-			color:#333;
-			margin-bottom:8px;
-		}
-	}
-
-
-	input[type="text"], input[type="password"], textarea {
-		margin-bottom:8px;
-		.border-box();
-		.rounded-corners();
-		border: 1px solid #C0C0C0;
-	    .rounded-corners(5px);
-	    color:#333;
-	    font-family: Verdana,"Arial",sans-serif;
-	    font-size: 12px;
-	    padding: 7px;
-		box-shadow: 0 0 3px #B2B2B2;
-		width:100%;
-		max-width:400px;
-		background-image: linear-gradient(top, rgb(255,255,255) 20%, rgb(239,239,239) 80%);
-		background-image: -o-linear-gradient(top, rgb(255,255,255) 20%, rgb(239,239,239) 80%);
-		background-image: -moz-linear-gradient(top, rgb(255,255,255) 20%, rgb(239,239,239) 80%);
-		background-image: -webkit-linear-gradient(top, rgb(255,255,255) 20%, rgb(239,239,239) 80%);
-		background-image: -ms-linear-gradient(top, rgb(255,255,255) 20%, rgb(239,239,239) 80%);
-		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.2, rgb(255,255,255)), color-stop(0.8, rgb(239,239,239)));
-
-		&::-webkit-input-placeholder {
-		    color:    #888;
-		}
-		&:-moz-placeholder {
-		    color:    #888;
-		}
-
-		&:focus {
-			background-image:none;
-			background-color:white;
-			color: black;
-		}
-
-		&.small {
-			width:50%;
-			max-width:200px;
-			margin-right: 200px;
-		}
-
-		&.good {
-			border: 1px solid @greencolor;
-		}
-
-		&.bad {
-			border: 1px solid @redcolor;
-		}
-
-		&.full-width {
-			max-width:none;
-		}
-	}
-
-	select {
-		width: 100%;
-		max-width:400px;
-		height: 34px;
-		height: 34px;
-		overflow: hidden;
-		padding: 6px;
-		font-family: Verdana,"Arial",sans-serif;
-		font-size: 12px;
-   		background-color: @lightgreycolor;
-		background-image: linear-gradient(top, rgb(255,255,255) 20%, rgb(239,239,239) 80%);
-		background-image: -o-linear-gradient(top, rgb(255,255,255) 20%, rgb(239,239,239) 80%);
-		background-image: -moz-linear-gradient(top, rgb(255,255,255) 20%, rgb(239,239,239) 80%);
-		background-image: -webkit-linear-gradient(top, rgb(255,255,255) 20%, rgb(239,239,239) 80%);
-		background-image: -ms-linear-gradient(top, rgb(255,255,255) 20%, rgb(239,239,239) 80%);
-		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.2, rgb(255,255,255)), color-stop(0.8, rgb(239,239,239)));
-		border: 1px solid #C0C0C0;
-		box-shadow: 0 0 3px #B2B2B2;
-		color:    #888;
-		.rounded-corners();
-
-		&:focus {
-			color:black;
-		}
-	}
-
-	textarea {
-		height:90px;
-		resize: none;
-	}
-
-	input[type="checkbox"] {
-		float:left;
-		margin-right:8px;
-	}
-}
 
 .arrow-box {
 	position: relative;
