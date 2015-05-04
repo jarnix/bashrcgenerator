@@ -48,8 +48,7 @@
     <div class="tripanel _cf">
         <div class="panel">
             <section class="sources">
-                <b><i>1</i>Available elements</b>
-                <span class="info">Drag and drop to your selection.</span>
+                <b><i>1</i>Available elements</b> <span class="info">Drag and drop to your selection.</span>
                 <ul id="source" class="source dd _cf">
 
                 </ul>
@@ -60,20 +59,20 @@
 
             <section class="main">
 
-                <b><i>2</i>Your selection</b>
-                <span class="info">Double-click to change the color and boldness.<br>Drag an element outside to remove it.</span>
+                <b><i>2</i>Your selection</b> <span class="info">Double-click to change the color and boldness.<br>Drag an element outside to remove it.
+                </span>
 
                 <ul class="dd" id="wishlist"></ul>
 
-                <div id="palette" style="display:none;">
-                    <div id="palette-close" class="close"><span class="iconic x"></span></div>
+                <div id="palette" style="display: none;">
+                    <div id="palette-close" class="close">
+                        <span class="iconic x"></span>
+                    </div>
                     <div class="colors"></div>
                     <div class="boldness"></div>
                 </div>
-                
-                <span class="buttons _cf">
-                    <a class="small-button" id="removeEverythingBtn">remove everything</a>
-                    <!-- <a class="small-button" id="sendBtn">send a link with this selection</a> -->
+
+                <span class="buttons _cf"> <a class="small-button" id="removeEverythingBtn">remove everything</a> <!-- <a class="small-button" id="sendBtn">send a link with this selection</a> -->
                 </span>
 
             </section>
@@ -83,8 +82,7 @@
         <div class="panel">
 
             <section>
-                <b><i>3</i>Preview of your prompt</b>
-                <span class="info">This is how your prompt will look like.</span>
+                <b><i>3</i>Preview of your prompt</b> <span class="info">This is how your prompt will look like.</span>
                 <div id="preview"></div>
 
             </section>
@@ -100,8 +98,19 @@
     </div>
 
     <div class="content _cf">
-        <section>
-            <b>Help</b>
+        <section class="help">
+            <p>
+                <b>Help</b> To use this for your prompt, it's easy: <br> Type this in your prompt :<br>
+                <code> nano ~./bashrc </code>
+            </p>
+            <p>
+                Then copy the generated code at the end of the file.<br> Save and exit (in nano, it's CTRL + o, CTRL + x).<br> To see the changes, either:
+            <ul>
+                <li>paste the generated code in your prompt like an usual command</li>
+                <li>logout and login again</li>
+                <li>type "bash" to run a new bash session</li>
+            </ul>
+            </p>
         </section>
     </div>
 

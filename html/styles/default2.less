@@ -73,6 +73,8 @@ p {
 	&.margin-top-big {
 		margin-top:20px;
 	}
+	
+	line-height:1.5em;
 }
 
 h1 {
@@ -275,6 +277,24 @@ section {
     border:10px solid #greencolor;
 }
 
+code {
+    background-color:#white;
+    border:1px solid silver;
+    padding:5px;
+    clear:both;
+    display:block;
+    margin-top:5px;
+}
+
+.help ul {
+    list-style-type: square;
+    
+    li {
+        margin-left:10px;
+    }
+    
+}
+
 #palette{
     position:fixed;
     width: 300px;
@@ -314,6 +334,15 @@ section {
         margin-bottom:1px;
         float:left;
         cursor:pointer;
+        
+        &.defaultColor {
+            background-color: #eee;
+            background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), 
+            linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black);
+            background-size:10px 10px;
+            background-position:0 0, 5px 5px
+        }
+        
     }
 
     .boldness {

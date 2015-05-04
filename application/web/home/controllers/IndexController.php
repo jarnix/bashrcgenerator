@@ -6,12 +6,12 @@ class IndexController extends \App\Controller
 
     function indexAction()
     {
-        $this->view->render('index');
+        $this->view->render('index2');
     }
 
     function index2Action()
     {
-        $this->view->render('index2');
+        $this->view->render('index');
     }
 
     function imgAction()
