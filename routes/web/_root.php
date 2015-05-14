@@ -10,15 +10,6 @@ $_routes[] = array(
 );
 
 $_routes[] = array(
-    '^2$',
-    array(
-        'home',
-        'index',
-        'index2'
-    )
-);
-
-$_routes[] = array(
     '^img$',
     array(
         'home',
