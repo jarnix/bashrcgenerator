@@ -29,8 +29,7 @@ var generator = {
 
     dragOut : function(event, ui)
     {
-        // console.log('out');
-        // console.log(ui.item);
+
     },
 
     dragFill : function()
@@ -274,41 +273,50 @@ var generator = {
         var whichFgColor = generator.defaultFgColorCode;
         var whichBgColor = generator.defaultBgColorCode;
         var whichBold = 0;
+        var liIndex = 0;
         $('#wishlist li').each(function(idx)
         {
-            if (parts = generator.getCodePartsFromName($(this).attr('name'))) {
-                htmlPreview += '<span style="color:' + generator.convertColorToHtml($(this).attr('data-fgcolor')) + '; ';
-                htmlPreview += 'background-color:' + generator.convertColorToHtml($(this).attr('data-bgcolor')) + '; ';
-                if (parseInt($(this).attr('data-bold')) == 1) {
-                    htmlPreview += ' font-weight:bold;';
-                }
-                htmlPreview += '">' + parts[2] + '</span>';
-
-                if (whichBold != $(this).attr('data-bold') && $(this).attr('data-bold') == 1) {
-                    htmlOutput += '\\[$(tput bold)\\]';
-                }
-                if (whichBold != $(this).attr('data-bold') && $(this).attr('data-bold') == 0) {
-                    htmlOutput += '\\[$(tput sgr0)\\]';
-                }
-                
-                if($(this).attr('data-fgcolor') == generator.defaultFgColorCode || $(this).attr('data-bgcolor') == generator.defaultBgColorCode) {
-                    htmlOutput += '\\[$(tput sgr0)\\]';
-                }
-
-                if ($(this).attr('data-fgcolor') != whichFgColor) {
-                    htmlOutput += '\\033[38;5;' + generator.convertColorToCode(generator.defaultFgColorCode) + 'm' + '\\033[38;5;' + generator.convertColorToCode($(this).attr('data-fgcolor')) + 'm';
-                }
-
-                if ($(this).attr('data-bgcolor') != whichBgColor) {
-                    htmlOutput += '\\033[48;5;' + generator.convertColorToCode(generator.defaultBgColorCode) + 'm' + '\\033[48;5;' + generator.convertColorToCode($(this).attr('data-bgcolor')) + 'm';
-                }
-
-                htmlOutput += parts[3];
-
-                whichBgColor = $(this).attr('data-bgcolor');
-                whichFgColor = $(this).attr('data-fgcolor');
-                whichBold = parseInt($(this).attr('data-bold'));
-            }
+        	if(!$(this).hasClass('placeholder')) {
+        		        		
+	            if (parts = generator.getCodePartsFromName($(this).attr('name'))) {
+	                htmlPreview += '<span style="color:' + generator.convertColorToHtml($(this).attr('data-fgcolor')) + '; ';
+	                htmlPreview += 'background-color:' + generator.convertColorToHtml($(this).attr('data-bgcolor')) + '; ';
+	                if (parseInt($(this).attr('data-bold')) == 1) {
+	                    htmlPreview += ' font-weight:bold;';
+	                }
+	                htmlPreview += '">' + parts[2] + '</span>';
+	
+	                if (whichBold != $(this).attr('data-bold') && $(this).attr('data-bold') == 1) {
+	                    htmlOutput += '\\[$(tput bold)\\]';
+	                }
+	                
+	                if (liIndex!=0 && whichBold != $(this).attr('data-bold') && $(this).attr('data-bold') == 0) {
+	                    htmlOutput += '\\[$(tput sgr0)\\]';
+	                }
+	                
+	                if(liIndex!=0 &&  ($(this).attr('data-fgcolor') != whichFgColor || $(this).attr('data-bgcolor') != whichBgColor)) {
+	                    htmlOutput += '\\[$(tput sgr0)\\]';
+	                }
+	
+	                if ($(this).attr('data-fgcolor') != whichFgColor) {
+	                    // htmlOutput += '\\[\\033[38;5;' + generator.convertColorToCode(generator.defaultFgColorCode) + 'm' + '\\]\\[\\033[38;5;' + generator.convertColorToCode($(this).attr('data-fgcolor')) + 'm\\]';
+	                    htmlOutput += '\\[\\033[38;5;' + generator.convertColorToCode($(this).attr('data-fgcolor')) + 'm\\]';
+	                }
+	
+	                if ($(this).attr('data-bgcolor') != whichBgColor) {
+	                    // htmlOutput += '\\[\\033[48;5;' + generator.convertColorToCode(generator.defaultBgColorCode) + 'm' + '\\]\\[\\033[48;5;' + generator.convertColorToCode($(this).attr('data-bgcolor')) + 'm\\]';
+	                    htmlOutput += '\\[\\033[48;5;' + generator.convertColorToCode($(this).attr('data-bgcolor')) + 'm\\]';
+	                }
+	
+	                htmlOutput += parts[3];
+	
+	                whichBgColor = $(this).attr('data-bgcolor');
+	                whichFgColor = $(this).attr('data-fgcolor');
+	                whichBold = parseInt($(this).attr('data-bold'));
+	                
+	                liIndex++;
+	            }
+        	}
         });
 
         // closes everything

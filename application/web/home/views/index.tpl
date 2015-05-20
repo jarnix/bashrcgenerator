@@ -122,7 +122,7 @@
                 <li>
                     <a href="http://stackoverflow.com/questions/4133904/ps1-line-with-git-current-branch-and-colors">PS1 line with git current branch and colors (stackoverflow.com)</a>
                 </li>
-                <li>And thank you to Саша Ярославцев and Mathias Ciliberto for reporting bugs and their solutions :)</li>
+                <li>And thank you to Саша Ярославцев and Mathias Ciliberto for reporting bugs and their solutions :). Thank you to Andreas Steinel too.</li>
             </ul>
         </section>
 
