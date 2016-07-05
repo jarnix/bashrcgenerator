@@ -93,7 +93,7 @@
         <section class="help">
             <p>
                 <b>Help</b> To use this for your prompt, it's easy: <br> Type this in your prompt :<br>
-                <code> nano ~./bashrc </code>
+                <code> nano ~/.bashrc </code>
             </p>
             <p>
                 Then copy the generated code at the end of the file.<br> Save and exit (in nano, it's CTRL + o, CTRL + x).<br> To see the changes, either:
@@ -122,7 +122,7 @@
                 <li>
                     <a href="http://stackoverflow.com/questions/4133904/ps1-line-with-git-current-branch-and-colors">PS1 line with git current branch and colors (stackoverflow.com)</a>
                 </li>
-                <li>And thank you to Саша Ярославцев and Mathias Ciliberto for reporting bugs and their solutions :). Thank you to Andreas Steinel too.</li>
+                <li>And thank you to Саша Ярославцев and Mathias Ciliberto for reporting bugs and their solutions :). Thank you to Andreas Steinel too. And thank you Lucas Prażyński :)</li>
             </ul>
         </section>
 
