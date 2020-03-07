@@ -219,7 +219,7 @@ var generator = {
         generator.dragFill();
 
         generator.addPreset([ 'username', 'charAt', 'hostnameShort', 'charColon', 'currentDirectory', 'charDollar', 'charSpace' ], 'user at computer : path $');
-        generator.addPreset([ 'username,11;#ffff55,-1;transparent', 'charAt', 'hostnameShort', 'charColon', 'charLeftBracket,6;#55ffff,-1;transparent', 'currentDirectory,6;#55ffff,-1;transparent', 'charRightBracket,6;#55ffff,-1;transparent', 'charColon,6;#55ffff,-1;transparent', 'charSpace' ], 'user at computer [ path ] , more readable');
+        generator.addPreset([ 'username,11;#ffff55,-1;transparent', 'charAt', 'hostnameShort', 'charColon', 'charLeftBracket,6;#55ffff,-1;transparent', 'currentDirectory,6;#55ffff,-1;transparent', 'charRightBracket,6;#55ffff,-1;transparent', 'charColon', 'charSpace' ], 'user at computer [ path ] , more readable');
 
         generator.fillPalette();
         generator.initEvents();
@@ -285,27 +285,26 @@ var generator = {
 	                    htmlPreview += ' font-weight:bold;';
 	                }
 	                htmlPreview += '">' + parts[2] + '</span>';
-	
-	                if (whichBold != $(this).attr('data-bold') && $(this).attr('data-bold') == 1) {
+		                
+                    if (liIndex!=0 && 
+                        (
+                            (whichBold != $(this).attr('data-bold') && $(this).attr('data-bold') == 0) ||
+                            ($(this).attr('data-fgcolor') != whichFgColor) ||
+                            ($(this).attr('data-bgcolor') != whichBgColor)
+                        )) {
+	                    htmlOutput += '\\[$(tput sgr0)\\]';
+                    }
+                    
+                    if (whichBold != $(this).attr('data-bold') && $(this).attr('data-bold') == 1) {
 	                    htmlOutput += '\\[$(tput bold)\\]';
 	                }
-	                
-	                if (liIndex!=0 && whichBold != $(this).attr('data-bold') && $(this).attr('data-bold') == 0) {
-	                    htmlOutput += '\\[$(tput sgr0)\\]';
-	                }
-	                
-	                if(liIndex!=0 &&  ($(this).attr('data-fgcolor') != whichFgColor || $(this).attr('data-bgcolor') != whichBgColor)) {
-	                    htmlOutput += '\\[$(tput sgr0)\\]';
-	                }
-	
-	                if ($(this).attr('data-fgcolor') != whichFgColor) {
-	                    // htmlOutput += '\\[\\033[38;5;' + generator.convertColorToCode(generator.defaultFgColorCode) + 'm' + '\\]\\[\\033[38;5;' + generator.convertColorToCode($(this).attr('data-fgcolor')) + 'm\\]';
+	                	
+	                if ($(this).attr('data-fgcolor') != whichFgColor && $(this).attr('data-fgcolor') != generator.defaultFgColorCode) {
 	                    htmlOutput += '\\[\\033[38;5;' + generator.convertColorToCode($(this).attr('data-fgcolor')) + 'm\\]';
 	                }
 	
-	                if ($(this).attr('data-bgcolor') != whichBgColor) {
-	                    // htmlOutput += '\\[\\033[48;5;' + generator.convertColorToCode(generator.defaultBgColorCode) + 'm' + '\\]\\[\\033[48;5;' + generator.convertColorToCode($(this).attr('data-bgcolor')) + 'm\\]';
-	                    htmlOutput += '\\[\\033[48;5;' + generator.convertColorToCode($(this).attr('data-bgcolor')) + 'm\\]';
+	                if ($(this).attr('data-bgcolor') != whichBgColor && $(this).attr('data-bgcolor') != generator.defaultBgColorCode) {
+                        htmlOutput += '\\[\\033[48;5;' + generator.convertColorToCode($(this).attr('data-bgcolor')) + 'm\\]';
 	                }
 	
 	                htmlOutput += parts[3];
