@@ -154,6 +154,7 @@ var generator = {
                 generator.dragRender(e, ui);
                 if (sortableIn == 0) {
                     ui.item.remove();
+                    generator.renderSelection();
                 }
             },
             receive : function(event, ui)
