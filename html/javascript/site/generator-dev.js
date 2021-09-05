@@ -20,7 +20,7 @@ var generator = {
     codes : [ [ 'hostnameShort', 'hostname (short)', 'mycomputer', '\\h' ], [ 'hostnameFull', 'hostname (full)', 'mycomputer.example', '\\H' ], [ 'username', 'username', 'mario', '\\u' ], [ 'shellName', 'shell name', 'bash', '\\v' ], [ 'terminal', 'terminal', 'ttys02', '\\l' ], [ 'currentDirectory', 'directory', '/usr/local/src', '\\w' ], [ 'currentDirectoryBase', 'directory (basename)', 'src', '\\W' ], [ 'timeShort', 'time-short (HH:MM)', '14:23', '\\A' ],
             [ 'timeLong', 'time with seconds (HH:MM:SS)', '14:23:52', '\\t' ], [ 'timeAMPM', 'time (HH:MM)', '07:23 AM', '\\@' ], [ 'timeAMPMs', 'time with seconds 12 hours (HH:MM:SS)', '02:23:52', '\\T' ], [ 'timeDate', 'date (Day Month Date)', 'Mon Feb 22', '\\d' ], [ 'exitStatus', 'exit status', '0', '\\$?' ], [ 'charGreaterThan', '>', '>', '>' ], [ 'charAt', '@', '@', '@' ], [ 'charColon', ':', ':', ':' ], [ 'charComma', ',', ',', ',' ], [ 'charPeriod', '.', '.', '.' ],
             [ 'charQuestion', '?', '?', '?' ], [ 'charExclamation', '!', '!', '!' ], [ 'charBackslash', '\\', '\\', '\\\\' ], [ 'charLeftBrace', '{', '{', '{' ], [ 'charRightBrace', '}', '}', '}' ], [ 'charLeftBracket', '[', '[', '[' ], [ 'charRightBracket', ']', ']', ']' ], [ 'charCaret', '^', '^', '^' ], [ 'charStar', '*', '*', '*' ], [ 'charDash', '-', '-', '-' ], [ 'charUnderscore', '_', '_', '_' ], [ 'charSpace', 'space', ' ', ' ' ], [ 'charNewLine', 'new line', '<br>', '\\n' ],
-            [ 'charDollar', '#/$', '$', '\\\\$' ] ],
+            [ 'charDollar', '#/$', '$', '\\\\$' ], ['gitBranch', 'git branch', '(main)', '(\\$(git branch 2>/dev/null | grep '^*' | colrm 1 2))'] ],
 
     dragRender : function(event, ui)
     {
