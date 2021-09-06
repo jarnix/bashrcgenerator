@@ -364,7 +364,9 @@ var generator = {
         generator.idPreset++;
         var el = $('<li></li>').attr('id', id).attr('data-code', codes.join('§')).on('click', function(evt)
         {
-            generator.setSelectionFromPreset($(evt.target).parent().parent().attr('data-code'), $(evt.target).parent().parent().attr('id'));
+            if ($(evt.target).parent().parent().attr('data-code')) {
+                generator.setSelectionFromPreset($(evt.target).parent().parent().attr('data-code'), $(evt.target).parent().parent().attr('id'));
+            }
         });
         var html = '<strong>';
         var i;
