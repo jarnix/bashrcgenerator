@@ -52,7 +52,7 @@ var generator = {
         [ 'charSpace', 'space', ' ', ' ' ],
         [ 'charNewLine', 'new line', '<br>', '\\n' ],
         [ 'charDollar', '#/$', '$', '\\\\$' ],
-        ['gitBranch', 'git branch', '(main)', '(\\$(git branch 2>/dev/null | grep \'^*\' | colrm 1 2))'],
+        ['gitBranch', 'git branch', '(main)', '($(git branch 2>/dev/null | grep \'^*\' | colrm 1 2))'],
     ],
 
     dragRender : function(event, ui)
