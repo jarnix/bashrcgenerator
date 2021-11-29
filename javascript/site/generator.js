@@ -52,7 +52,7 @@ var generator = {
         [ 'charSpace', 'space', ' ', ' ' ],
         [ 'charNewLine', 'new line', '<br>', '\\n' ],
         [ 'charDollar', '#/$', '$', '\\\\$' ],
-        [ 'gitBranch', 'git branch', '(main)', "\$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')"],
+        [ 'gitBranch', 'git branch', '(main)', '\\$(git branch 2> \/dev\/null | sed -e \'\/^[^*]\/d\' -e \'s\/* \\(.*\\)\/(\\1)\/\')'],
         
     ],
 
