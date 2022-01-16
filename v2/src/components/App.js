@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container , Button, Icon, Menu, Header, Segment } from 'semantic-ui-react';
+import { Container, Button, Icon, Menu, Header, Segment } from 'semantic-ui-react';
 import CharPicker from '../components/CharPicker';
 import CharSelection from '../components/CharSelection';
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
@@ -209,15 +209,7 @@ class App extends React.Component {
         this.setState({ [uuid()]: [] });
     };
 
-    /*
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeTool: 'prompt'
-        };
-        this.onDragEnd = this.onDragEnd.bind(this);
-    }
-    */
+  
 
     handleItemClick = (e, { name }) => this.setState({ activeTool: name });
 
@@ -248,121 +240,48 @@ class App extends React.Component {
 
 
                 <DragDropContext onDragEnd={this.onDragEnd}>
-                <Droppable droppableId="ITEMS" isDropDisabled={true}>
-                    {(provided, snapshot) => (
-                        <Kiosk
-                            ref={provided.innerRef}
-                            isDraggingOver={snapshot.isDraggingOver}>
-                            {ITEMS.map((item, index) => (
-                                <Draggable
-                                    key={item.id}
-                                    draggableId={item.id}
-                                    index={index}>
-                                    {(provided, snapshot) => (
-                                        <React.Fragment>
-                                            <Item
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                isDragging={snapshot.isDragging}
-                                                style={
-                                                    provided.draggableProps
-                                                        .style
-                                                }>
-                                                {item.content}
-                                            </Item>
-                                            {snapshot.isDragging && (
-                                                <Clone>{item.content}</Clone>
-                                            )}
-                                        </React.Fragment>
-                                    )}
-                                </Draggable>
-                            ))}
-                        </Kiosk>
-                    )}
-                </Droppable>
-                <Content>
-                    <Button2 onClick={this.addList}>
-                        <svg width="24" height="24" viewBox="0 0 24 24">
-                            <path
-                                fill="currentColor"
-                                d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                            />
-                        </svg>
-                        <ButtonText>Add List</ButtonText>
-                    </Button2>
-                    {Object.keys(this.state).map((list, i) => {
-                        console.log('==> list', list);
-                        return (
-                            <Droppable key={list} droppableId={list}>
-                                {(provided, snapshot) => (
-                                    <Container2
-                                        ref={provided.innerRef}
-                                        isDraggingOver={
-                                            snapshot.isDraggingOver
-                                        }>
-                                        {this.state[list].length
-                                            ? this.state[list].map(
-                                                  (item, index) => (
-                                                      <Draggable
-                                                          key={item.id}
-                                                          draggableId={item.id}
-                                                          index={index}>
-                                                          {(
-                                                              provided,
-                                                              snapshot
-                                                          ) => (
-                                                              <Item
-                                                                  ref={
-                                                                      provided.innerRef
-                                                                  }
-                                                                  {...provided.draggableProps}
-                                                                  isDragging={
-                                                                      snapshot.isDragging
-                                                                  }
-                                                                  style={
-                                                                      provided
-                                                                          .draggableProps
-                                                                          .style
-                                                                  }>
-                                                                  <Handle
-                                                                      {...provided.dragHandleProps}>
-                                                                      <svg
-                                                                          width="24"
-                                                                          height="24"
-                                                                          viewBox="0 0 24 24">
-                                                                          <path
-                                                                              fill="currentColor"
-                                                                              d="M3,15H21V13H3V15M3,19H21V17H3V19M3,11H21V9H3V11M3,5V7H21V5H3Z"
-                                                                          />
-                                                                      </svg>
-                                                                  </Handle>
-                                                                  {item.content}
-                                                              </Item>
-                                                          )}
-                                                      </Draggable>
-                                                  )
-                                              )
-                                            : !provided.placeholder && (
-                                                  <Notice>
-                                                      Drop items here
-                                                  </Notice>
-                                              )}
-                                        {provided.placeholder}
-                                    </Container2>
-                                )}
-                            </Droppable>
-                        );
-                    })}
-                </Content>
-            </DragDropContext>
 
-                <DragDropContext onDragEnd={this.onDragEnd}>
+
                     <Segment>
 
                         <Header as='h5'><Icon size='tiny' name='folder open' />Available Elements</Header>
                         <Segment padded inverted>
-                            
+
+                            <Droppable droppableId="ITEMS" isDropDisabled={true}>
+                                {(provided, snapshot) => (
+                                    <Kiosk
+                                        ref={provided.innerRef}
+                                        isDraggingOver={snapshot.isDraggingOver}>
+                                        {ITEMS.map((item, index) => (
+                                            <Draggable
+                                                key={item.id}
+                                                draggableId={item.id}
+                                                index={index}>
+                                                {(provided, snapshot) => (
+                                                    <React.Fragment>
+                                                        <Item
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            isDragging={snapshot.isDragging}
+                                                            style={
+                                                                provided.draggableProps
+                                                                    .style
+                                                            }>
+                                                            {item.content}
+                                                        </Item>
+                                                        {snapshot.isDragging && (
+                                                            <Clone>{item.content}</Clone>
+                                                        )}
+                                                    </React.Fragment>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                    </Kiosk>
+                                )}
+                            </Droppable>
+
+
 
                         </Segment>
                     </Segment>
@@ -370,7 +289,76 @@ class App extends React.Component {
                     <Segment>
                         <Header as='h5'><Icon size='tiny' name='shopping cart' />Your Selection</Header>
                         <Segment padded inverted>
-                            
+
+                                {Object.keys(this.state).map((list, i) => {
+                                    console.log('==> list', list);
+                                    return (
+                                        <Droppable key={list} droppableId={list}>
+                                            {(provided, snapshot) => (
+                                                <Container2
+                                                    ref={provided.innerRef}
+                                                    isDraggingOver={
+                                                        snapshot.isDraggingOver
+                                                    }>
+                                                    {this.state[list].length
+                                                        ? this.state[list].map(
+                                                            (item, index) => (
+                                                                <Draggable
+                                                                    key={item.id}
+                                                                    draggableId={item.id}
+                                                                    index={index}>
+                                                                    {(
+                                                                        provided,
+                                                                        snapshot
+                                                                    ) => (
+                                                                        <Item
+                                                                            ref={
+                                                                                provided.innerRef
+                                                                            }
+                                                                            {...provided.draggableProps}
+                                                                            isDragging={
+                                                                                snapshot.isDragging
+                                                                            }
+                                                                            style={
+                                                                                provided
+                                                                                    .draggableProps
+                                                                                    .style
+                                                                            }>
+                                                                            <Handle
+                                                                                {...provided.dragHandleProps}>
+                                                                                <svg
+                                                                                    width="24"
+                                                                                    height="24"
+                                                                                    viewBox="0 0 24 24">
+                                                                                    <path
+                                                                                        fill="currentColor"
+                                                                                        d="M3,15H21V13H3V15M3,19H21V17H3V19M3,11H21V9H3V11M3,5V7H21V5H3Z"
+                                                                                    />
+                                                                                </svg>
+                                                                            </Handle>
+                                                                            {item.content}
+                                                                        </Item>
+                                                                    )}
+                                                                </Draggable>
+                                                            )
+                                                        )
+                                                        : !provided.placeholder && (
+                                                            <Notice>
+                                                                Drop items here
+                                                            </Notice>
+                                                        )}
+                                                    {provided.placeholder}
+                                                </Container2>
+                                            )}
+                                        </Droppable>
+                                    );
+                                })}
+                   
+
+
+
+
+
                         </Segment>
                         <Container textAlign='right'>
                             <Button basic color='red'>Clear Selection</Button>
@@ -379,24 +367,25 @@ class App extends React.Component {
 
                 </DragDropContext>
 
+
                 <Segment>
                     <Header as='h5'><Icon size='tiny' name='eye' />Preview</Header>
                     <Segment padded inverted>
-                        
+
                     </Segment>
                 </Segment>
 
                 <Segment>
                     <Header as='h5'><Icon size='tiny' name='code' />Generated code</Header>
                     <Segment padded inverted>
-                        
+
                     </Segment>
                     <Button primary>Copy to clipboard</Button>
                 </Segment>
 
             </Container>
         );
- 
+
     }
 }
 
