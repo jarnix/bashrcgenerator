@@ -158,7 +158,9 @@ const ITEMS = [
 
 class App extends Component {
     state = {
-        [uuid()]: []
+        droppable: [],
+        draggable: [],
+        activeTool: 'prompt'
     };
     onDragEnd = result => {
         const { source, destination } = result;
@@ -173,8 +175,8 @@ class App extends Component {
         switch (source.droppableId) {
             case destination.droppableId:
                 this.setState({
-                    [destination.droppableId]: reorder(
-                        this.state[source.droppableId],
+                    droppable: reorder(
+                        this.state.droppable,
                         source.index,
                         destination.index
                     )
@@ -182,9 +184,9 @@ class App extends Component {
                 break;
             case 'ITEMS':
                 this.setState({
-                    [destination.droppableId]: copy(
+                    droppable: copy(
                         ITEMS,
-                        this.state[destination.droppableId],
+                        this.state.droppable,
                         source,
                         destination
                     )
@@ -193,8 +195,8 @@ class App extends Component {
             default:
                 this.setState(
                     move(
-                        this.state[source.droppableId],
-                        this.state[destination.droppableId],
+                        this.state.droppable,
+                        this.state.droppable,
                         source,
                         destination
                     )
@@ -215,7 +217,7 @@ class App extends Component {
                         name='prompt'
                         color='blue'
                         active={this.state.activeTool === 'prompt'}
-                        onClick={this.handleItemClick}
+                        onClick={() => this.setState({activeTool: 'prompt'}) }
                     >
                         <Icon name='angle right' /> Prompt
                     </Menu.Item>
@@ -223,7 +225,7 @@ class App extends Component {
                         name='window'
                         color='orange'
                         active={this.state.activeTool === 'window'}
-                        onClick={this.handleItemClick}
+                        onClick={() => this.setState({activeTool: 'window'}) }
                     >
                         <Icon name='window maximize' /> Window
                     </Menu.Item>
@@ -277,73 +279,70 @@ class App extends Component {
                         <Header as='h5'><Icon size='tiny' name='shopping cart' />Your Selection</Header>
                         <Segment padded inverted>
 
-                        <Content>
-                            {Object.keys(this.state).map((list, i) => {
-                                console.log('==> list', list);
-                                return (
-                                    <Droppable key={list} droppableId={list}>
-                                        {(provided, snapshot) => (
-                                            <Container2
-                                                innerRef={provided.innerRef}
-                                                isDraggingOver={
-                                                    snapshot.isDraggingOver
-                                                }>
-                                                {this.state[list].length
-                                                    ? this.state[list].map(
-                                                        (item, index) => (
-                                                            <Draggable
-                                                                key={item.id}
-                                                                draggableId={item.id}
-                                                                index={index}>
-                                                                {(
-                                                                    provided,
-                                                                    snapshot
-                                                                ) => (
-                                                                    <Item
-                                                                        innerRef={
-                                                                            provided.innerRef
-                                                                        }
-                                                                        {...provided.draggableProps}
-                                                                        isDragging={
-                                                                            snapshot.isDragging
-                                                                        }
-                                                                        style={
-                                                                            provided
-                                                                                .draggableProps
-                                                                                .style
-                                                                        }>
-                                                                        <Handle
-                                                                            {...provided.dragHandleProps}>
-                                                                            <svg
-                                                                                width="24"
-                                                                                height="24"
-                                                                                viewBox="0 0 24 24">
-                                                                                <path
-                                                                                    fill="currentColor"
-                                                                                    d="M3,15H21V13H3V15M3,19H21V17H3V19M3,11H21V9H3V11M3,5V7H21V5H3Z"
-                                                                                />
-                                                                            </svg>
-                                                                        </Handle>
-                                                                        {item.content}
-                                                                    </Item>
-                                                                )}
-                                                            </Draggable>
-                                                        )
-                                                    )
-                                                    : !provided.placeholder && (
-                                                        <Notice>
-                                                            Drop items here
-                                                        </Notice>
-                                                    )}
-                                                {provided.placeholder}
-                                            </Container2>
-                                        )}
-                                    </Droppable>
-                                );
-                            })}
-                        </Content>
+                            <Content>
 
-                        
+                                <Droppable droppableId='droppable'>
+                                    {(provided, snapshot) => (
+                                        <Container2
+                                            innerRef={provided.innerRef}
+                                            isDraggingOver={
+                                                snapshot.isDraggingOver
+                                            }>
+                                            {this.state.droppable.length
+                                                ? this.state.droppable.map(
+                                                    (item, index) => (
+                                                        <Draggable
+                                                            key={item.id}
+                                                            draggableId={item.id}
+                                                            index={index}>
+                                                            {(
+                                                                provided,
+                                                                snapshot
+                                                            ) => (
+                                                                <Item
+                                                                    innerRef={
+                                                                        provided.innerRef
+                                                                    }
+                                                                    {...provided.draggableProps}
+                                                                    isDragging={
+                                                                        snapshot.isDragging
+                                                                    }
+                                                                    style={
+                                                                        provided
+                                                                            .draggableProps
+                                                                            .style
+                                                                    }>
+                                                                    <Handle
+                                                                        {...provided.dragHandleProps}>
+                                                                        <svg
+                                                                            width="24"
+                                                                            height="24"
+                                                                            viewBox="0 0 24 24">
+                                                                            <path
+                                                                                fill="currentColor"
+                                                                                d="M3,15H21V13H3V15M3,19H21V17H3V19M3,11H21V9H3V11M3,5V7H21V5H3Z"
+                                                                            />
+                                                                        </svg>
+                                                                    </Handle>
+                                                                    {item.content}
+                                                                </Item>
+                                                            )}
+                                                        </Draggable>
+                                                    )
+                                                )
+                                                : !provided.placeholder && (
+                                                    <Notice>
+                                                        Drop items here
+                                                    </Notice>
+                                                )}
+                                            {provided.placeholder}
+                                        </Container2>
+                                    )}
+                                </Droppable>
+
+                            </Content>
+
+
                         </Segment>
                         <Container textAlign='right'>
                             <Button basic color='red'>Clear Selection</Button>
