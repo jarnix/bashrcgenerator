@@ -18,13 +18,12 @@ const reorder = (list, startIndex, endIndex) => {
  * Moves an item from one list to another list.
  */
 const copy = (source, destination, droppableSource, droppableDestination) => {
-    console.log('==> dest', destination);
-
     const sourceClone = Array.from(source);
     const destClone = Array.from(destination);
     const item = sourceClone[droppableSource.index];
 
     destClone.splice(droppableDestination.index, 0, { ...item, id: uuid() });
+
     return destClone;
 };
 
@@ -42,21 +41,19 @@ const move = (source, destination, droppableSource, droppableDestination) => {
     return result;
 };
 
-const Content = styled.div`
-    margin-right: 200px;
-`;
+
 
 const Item = styled.div`
-    display: flex;
     user-select: none;
     padding: 0.5rem;
     margin: 0 0 0.5rem 0;
     align-items: flex-start;
     align-content: flex-start;
+    background-color:white;
     line-height: 1.5;
     border-radius: 3px;
-    background: #fff;
-    border: 1px ${props => (props.isDragging ? 'dashed #4099ff' : 'solid #ddd')};
+    color: black;
+    border: 1px ${props => (props.isDragging ? 'dashed #4099ff' : 'solid #000')};
 `;
 
 const Clone = styled(Item)`
@@ -65,41 +62,22 @@ const Clone = styled(Item)`
     }
 `;
 
-const Handle = styled.div`
-    display: flex;
-    align-items: center;
-    align-content: center;
-    user-select: none;
-    margin: -0.5rem 0.5rem -0.5rem -0.5rem;
-    padding: 0.5rem;
-    line-height: 1.5;
-    border-radius: 3px 0 0 3px;
-    background: #fff;
-    border-right: 1px solid #ddd;
-    color: #000;
-`;
 
 const List = styled.div`
-    border: 1px
-        ${props => (props.isDraggingOver ? 'dashed #000' : 'solid #ddd')};
-    background: #fff;
+    display:flex;
+    width: 100%;    
+    border: 1px ${props => (props.isDraggingOver ? 'dashed #FFF' : 'solid #000')};
     padding: 0.5rem 0.5rem 0;
     border-radius: 3px;
-    flex: 0 0 150px;
     font-family: sans-serif;
+    flex-wrap: wrap;
 `;
 
 const Kiosk = styled(List)`
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 200px;
+    
 `;
 
 const Container2 = styled(List)`
-    margin: 0.5rem 0.5rem 1.5rem;
-    background: #ccc;
 `;
 
 const Notice = styled.div`
@@ -114,24 +92,7 @@ const Notice = styled.div`
     color: #aaa;
 `;
 
-const Button2 = styled.button`
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    margin: 0.5rem;
-    padding: 0.5rem;
-    color: #000;
-    border: 1px solid #ddd;
-    background: #fff;
-    border-radius: 3px;
-    font-size: 1rem;
-    cursor: pointer;
-`;
 
-const ButtonText = styled.div`
-    margin: 0 1rem;
-`;
 
 const ITEMS = [
     {
@@ -162,6 +123,12 @@ class App extends Component {
         draggable: [],
         activeTool: 'prompt'
     };
+
+    componentDidUpdate() {
+        // là on renverra le truc au parent
+        console.log("update", this.state);
+    }
+
     onDragEnd = result => {
         const { source, destination } = result;
 
@@ -176,39 +143,45 @@ class App extends Component {
             case destination.droppableId:
                 this.setState({
                     droppable: reorder(
-                        this.state.droppable,
+                        this.state[source.droppableId],
                         source.index,
                         destination.index
                     )
                 });
+                console.log('destination droppableId', this.state);
                 break;
             case 'ITEMS':
+                console.log('ITEMS');
                 this.setState({
                     droppable: copy(
                         ITEMS,
-                        this.state.droppable,
+                        this.state[destination.droppableId],
                         source,
                         destination
                     )
                 });
                 break;
             default:
+                console.log('default, move');
                 this.setState(
                     move(
-                        this.state.droppable,
-                        this.state.droppable,
+                        this.state[source.droppableId],
+                        this.state[destination.droppableId],
                         source,
                         destination
                     )
                 );
+                console.log('default', this.state);
                 break;
         }
+        console.log("state", this.state);
     };
 
 
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
+        // console.log(this.state);
         return (
             <Container>
 
@@ -279,9 +252,9 @@ class App extends Component {
                         <Header as='h5'><Icon size='tiny' name='shopping cart' />Your Selection</Header>
                         <Segment padded inverted>
 
-                            <Content>
+                            
 
-                                <Droppable droppableId='droppable'>
+                                <Droppable droppableId='droppable' direction="horizontal">
                                     {(provided, snapshot) => (
                                         <Container2
                                             innerRef={provided.innerRef}
@@ -307,24 +280,13 @@ class App extends Component {
                                                                     isDragging={
                                                                         snapshot.isDragging
                                                                     }
+                                                                    {...provided.dragHandleProps}
                                                                     style={
                                                                         provided
                                                                             .draggableProps
                                                                             .style
                                                                     }>
-                                                                    <Handle
-                                                                        {...provided.dragHandleProps}>
-                                                                        <svg
-                                                                            width="24"
-                                                                            height="24"
-                                                                            viewBox="0 0 24 24">
-                                                                            <path
-                                                                                fill="currentColor"
-                                                                                d="M3,15H21V13H3V15M3,19H21V17H3V19M3,11H21V9H3V11M3,5V7H21V5H3Z"
-                                                                            />
-                                                                        </svg>
-                                                                    </Handle>
-                                                                    {item.content}
+                                                                    dr - {item.content}
                                                                 </Item>
                                                             )}
                                                         </Draggable>
@@ -339,8 +301,6 @@ class App extends Component {
                                         </Container2>
                                     )}
                                 </Droppable>
-
-                            </Content>
 
 
                         </Segment>
