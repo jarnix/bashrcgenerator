@@ -4,6 +4,8 @@ import { v4 as uuid } from 'uuid';
 import styled from 'styled-components';
 import { Container, Button, Icon, Menu, Header, Segment } from 'semantic-ui-react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import Char from './Char';
+// import CharClone from './CharClone';
 // import console = require('console');
 
 // a little function to help us with reordering the result
@@ -224,6 +226,19 @@ class App extends Component {
                                                 index={index}>
                                                 {(provided, snapshot) => (
                                                     <React.Fragment>
+                                                        <Char
+                                                            provided={provided}
+                                                            /*
+                                                            innerRef={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            */
+                                                            isDragging={snapshot.isDragging}
+                                                        >
+                                                            {item.content}
+                                                        </Char>
+                                                            
+                                                        {/*
                                                         <Item
                                                             innerRef={provided.innerRef}
                                                             {...provided.draggableProps}
@@ -235,9 +250,11 @@ class App extends Component {
                                                             }>
                                                             {item.content}
                                                         </Item>
+                                                        */}
                                                         {snapshot.isDragging && (
-                                                            <Clone>{item.content}</Clone>
+                                                            <Clone>{item.content}</Clone>    
                                                         )}
+                                                        {/* <CharClone>{item.content}</CharClone> */}
                                                     </React.Fragment>
                                                 )}
                                             </Draggable>
@@ -286,7 +303,7 @@ class App extends Component {
                                                                             .draggableProps
                                                                             .style
                                                                     }>
-                                                                    dr - {item.content}
+                                                                    {item.content}
                                                                 </Item>
                                                             )}
                                                         </Draggable>
