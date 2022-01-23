@@ -73,8 +73,8 @@ const Notice = styled.div`
     align-items: center;
     align-content: center;
     justify-content: center;
-    padding: 0.5rem;
-    margin: 0 0.5rem 0.5rem;
+    padding: 0.35rem;
+    margin: 0 0.2rem 0rem;
     border: 1px solid transparent;
     line-height: 1.5;
     color: #aaa;
@@ -136,7 +136,10 @@ class App extends Component {
 
         // dropped outside the list
         if (!destination) {
-            return;
+            console.log("ici pour poubelle", source.index);            
+            this.setState({
+                droppable: remove(this.state.droppable, source.index)
+            })
         }
         else if (destination.droppableId === 'trashable' && source.droppableId === 'droppable') {
             console.log("ici pour poubelle", source.index);            
@@ -239,7 +242,7 @@ class App extends Component {
                                                             */
                                                             isDragging={snapshot.isDragging}
                                                         >
-                                                            {item.text}
+                                                            {item.desc}
                                                         </Char>
 
                                                         {/*
@@ -256,7 +259,7 @@ class App extends Component {
                                                         </Item>
                                                         */}
                                                         {snapshot.isDragging && (
-                                                            <CharClone>{item.text}</CharClone>
+                                                            <CharClone>{item.desc}</CharClone>
                                                         )}
                                                         {/* <CharClone>{item.content}</CharClone> */}
                                                     </React.Fragment>
@@ -301,7 +304,7 @@ class App extends Component {
                                                                     */
                                                                     isDragging={snapshot.isDragging}
                                                                 >
-                                                                    {item.text}
+                                                                    {item.desc}
                                                                 </Char>
 
                                                                 {/*
@@ -332,22 +335,22 @@ class App extends Component {
 
                         </Segment>
 
-                        <Segment>
-                            Poubelle
-                            <Droppable droppableId='trashable'>
-                                {(provided, snapshot) => (
-                                        <Container2
-                                            style={{height: '50px'}}
-                                            innerRef={provided.innerRef}>
-                                            {provided.placeholder}
-                                        </Container2>
-                                )}
-                            </Droppable>
-                        </Segment>
-
-                        <Container textAlign='right'>
+                            
+                                <i className="trash alternate outline icon"></i>
+                                <Droppable droppableId='trashable'>
+                                    {(provided, snapshot) => (
+                                            <Container2
+                                                style={{height: '50px'}}
+                                                innerRef={provided.innerRef}>
+                                                {provided.placeholder}
+                                            </Container2>
+                                    )}
+                                </Droppable>
+                            
+                        
+                        
                             <Button basic color='red'>Clear Selection</Button>
-                        </Container>
+                        
                     </Segment>
 
                 </DragDropContext>
