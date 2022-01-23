@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Container, Button, Icon, Menu, Header, Segment } from 'semantic-ui-react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Char from './Char';
-// import CharClone from './CharClone';
+import CharClone from './CharClone';
 // import console = require('console');
 
 // a little function to help us with reordering the result
@@ -43,26 +43,11 @@ const move = (source, destination, droppableSource, droppableDestination) => {
     return result;
 };
 
-
-
-const Item = styled.div`
-    user-select: none;
-    padding: 0.5rem;
-    margin: 0 0 0.5rem 0;
-    align-items: flex-start;
-    align-content: flex-start;
-    background-color:white;
-    line-height: 1.5;
-    border-radius: 3px;
-    color: black;
-    border: 1px ${props => (props.isDragging ? 'dashed #4099ff' : 'solid #000')};
-`;
-
-const Clone = styled(Item)`
-    + div {
-        display: none !important;
-    }
-`;
+const remove = (droppableElements, indexToRemove) => {
+    const droppableElementsClone = Array.from(droppableElements);
+    droppableElementsClone.splice(indexToRemove, 1);
+    return droppableElementsClone;
+};
 
 
 const List = styled.div`
@@ -80,6 +65,7 @@ const Kiosk = styled(List)`
 `;
 
 const Container2 = styled(List)`
+    flex-wrap: nowrap;
 `;
 
 const Notice = styled.div`
@@ -94,40 +80,52 @@ const Notice = styled.div`
     color: #aaa;
 `;
 
-
-
 const ITEMS = [
-    {
-        id: uuid(),
-        content: 'Headline'
-    },
-    {
-        id: uuid(),
-        content: 'Copy'
-    },
-    {
-        id: uuid(),
-        content: 'Image'
-    },
-    {
-        id: uuid(),
-        content: 'Slideshow'
-    },
-    {
-        id: uuid(),
-        content: 'Quote'
-    }
+    { "id": uuid(), "text": "hostnameShort", "desc": "hostname (short)", "html": "mycomputer", "code": "\\h" },
+    { "id": uuid(), "text": "hostnameFull", "desc": "hostname (full)", "html": "mycomputer.example", "code": "\\H" },
+    { "id": uuid(), "text": "username", "desc": "username", "html": "mario", "code": "\\u" },
+    { "id": uuid(), "text": "shellName", "desc": "shell name", "html": "bash", "code": "\\v" },
+    { "id": uuid(), "text": "terminal", "desc": "terminal", "html": "ttys02", "code": "\\l" },
+    { "id": uuid(), "text": "currentDirectory", "desc": "directory", "html": "/usr/local/src", "code": "\\w" },
+    { "id": uuid(), "text": "currentDirectoryBase", "desc": "directory (basename)", "html": "src", "code": "\\W" },
+    { "id": uuid(), "text": "timeShort", "desc": "time-short (HH:MM)", "html": "14:23", "code": "\\A" },
+    { "id": uuid(), "text": "timeLong", "desc": "time with seconds (HH:MM:SS)", "html": "14:23:52", "code": "\\t" },
+    { "id": uuid(), "text": "timeAMPM", "desc": "time (HH:MM)", "html": "07:23 AM", "code": "\\@" },
+    { "id": uuid(), "text": "timeAMPMs", "desc": "time with seconds 12 hours (HH:MM:SS)", "html": "02:23:52", "code": "\\T" },
+    { "id": uuid(), "text": "timeDate", "desc": "date (Day Month Date)", "html": "Mon Feb 22", "code": "\\d" },
+    { "id": uuid(), "text": "exitStatus", "desc": "exit status", "html": "0", "code": "\\$?" },
+    { "id": uuid(), "text": "charGreaterThan", "desc": ">", "html": ">", "code": ">" },
+    { "id": uuid(), "text": "charAt", "desc": "@", "html": "@", "code": "@" },
+    { "id": uuid(), "text": "charColon", "desc": ":", "html": ":", "code": ":" },
+    { "id": uuid(), "text": "charComma", "desc": ",", "html": ",", "code": "," },
+    { "id": uuid(), "text": "charPeriod", "desc": ".", "html": ".", "code": "." },
+    { "id": uuid(), "text": "charQuestion", "desc": "?", "html": "?", "code": "?" },
+    { "id": uuid(), "text": "charExclamation", "desc": "!", "html": "!", "code": "!" },
+    { "id": uuid(), "text": "charBackslash", "desc": "\\", "html": "\\", "code": "\\\\" },
+    { "id": uuid(), "text": "charLeftBrace", "desc": "{", "html": "{", "code": "{" },
+    { "id": uuid(), "text": "charRightBrace", "desc": "}", "html": "}", "code": "}" },
+    { "id": uuid(), "text": "charLeftBracket", "desc": "[", "html": "[", "code": "[" },
+    { "id": uuid(), "text": "charRightBracket", "desc": "]", "html": "]", "code": "]" },
+    { "id": uuid(), "text": "charLeftParenthesis", "desc": "(", "html": "(", "code": "(" },
+    { "id": uuid(), "text": "charRightParenthesis", "desc": ")", "html": ")", "code": ")" },
+    { "id": uuid(), "text": "charCaret", "desc": "^", "html": "^", "code": "^" },
+    { "id": uuid(), "text": "charStar", "desc": "*", "html": "*", "code": "*" },
+    { "id": uuid(), "text": "charDash", "desc": "-", "html": "-", "code": "-" },
+    { "id": uuid(), "text": "charUnderscore", "desc": "_", "html": "_", "code": "_" },
+    { "id": uuid(), "text": "charSpace", "desc": "space", "html": " ", "code": " " },
+    { "id": uuid(), "text": "charNewLine", "desc": "new line", "html": "<br>", "code": "\\n" },
+    { "id": uuid(), "text": "charDollar", "desc": "#/$", "html": "$", "code": "\\\\$" },
+    { "id": uuid(), "text": "gitBranch", "desc": "git branch", "html": "(main)", "code": "($(git branch 2>/dev/null | grep '^*' | colrm 1 2))" }
 ];
-
 class App extends Component {
     state = {
         droppable: [],
         draggable: [],
+        trashable: [],
         activeTool: 'prompt'
     };
 
     componentDidUpdate() {
-        // là on renverra le truc au parent
         console.log("update", this.state);
     }
 
@@ -140,43 +138,49 @@ class App extends Component {
         if (!destination) {
             return;
         }
-
-        switch (source.droppableId) {
-            case destination.droppableId:
-                this.setState({
-                    droppable: reorder(
-                        this.state[source.droppableId],
-                        source.index,
-                        destination.index
-                    )
-                });
-                console.log('destination droppableId', this.state);
-                break;
-            case 'ITEMS':
-                console.log('ITEMS');
-                this.setState({
-                    droppable: copy(
-                        ITEMS,
-                        this.state[destination.droppableId],
-                        source,
-                        destination
-                    )
-                });
-                break;
-            default:
-                console.log('default, move');
-                this.setState(
-                    move(
-                        this.state[source.droppableId],
-                        this.state[destination.droppableId],
-                        source,
-                        destination
-                    )
-                );
-                console.log('default', this.state);
-                break;
+        else if (destination.droppableId === 'trashable' && source.droppableId === 'droppable') {
+            console.log("ici pour poubelle", source.index);            
+            this.setState({
+                droppable: remove(this.state.droppable, source.index)
+            })
+        } else {
+            switch (source.droppableId) {
+                case destination.droppableId:
+                    this.setState({
+                        droppable: reorder(
+                            this.state[source.droppableId],
+                            source.index,
+                            destination.index
+                        )
+                    });
+                    console.log('destination droppableId', this.state);
+                    break;
+                case 'ITEMS':
+                    console.log('ITEMS');
+                    this.setState({
+                        droppable: copy(
+                            ITEMS,
+                            this.state[destination.droppableId],
+                            source,
+                            destination
+                        )
+                    });
+                    break;
+                default:
+                    console.log('default, move');
+                    this.setState(
+                        move(
+                            this.state[source.droppableId],
+                            this.state[destination.droppableId],
+                            source,
+                            destination
+                        )
+                    );
+                    console.log('default', this.state);
+                    break;
+            }
+            console.log("state", this.state);
         }
-        console.log("state", this.state);
     };
 
 
@@ -192,7 +196,7 @@ class App extends Component {
                         name='prompt'
                         color='blue'
                         active={this.state.activeTool === 'prompt'}
-                        onClick={() => this.setState({activeTool: 'prompt'}) }
+                        onClick={() => this.setState({ activeTool: 'prompt' })}
                     >
                         <Icon name='angle right' /> Prompt
                     </Menu.Item>
@@ -200,7 +204,7 @@ class App extends Component {
                         name='window'
                         color='orange'
                         active={this.state.activeTool === 'window'}
-                        onClick={() => this.setState({activeTool: 'window'}) }
+                        onClick={() => this.setState({ activeTool: 'window' })}
                     >
                         <Icon name='window maximize' /> Window
                     </Menu.Item>
@@ -235,9 +239,9 @@ class App extends Component {
                                                             */
                                                             isDragging={snapshot.isDragging}
                                                         >
-                                                            {item.content}
+                                                            {item.text}
                                                         </Char>
-                                                            
+
                                                         {/*
                                                         <Item
                                                             innerRef={provided.innerRef}
@@ -252,7 +256,7 @@ class App extends Component {
                                                         </Item>
                                                         */}
                                                         {snapshot.isDragging && (
-                                                            <Clone>{item.content}</Clone>    
+                                                            <CharClone>{item.text}</CharClone>
                                                         )}
                                                         {/* <CharClone>{item.content}</CharClone> */}
                                                     </React.Fragment>
@@ -269,58 +273,78 @@ class App extends Component {
                         <Header as='h5'><Icon size='tiny' name='shopping cart' />Your Selection</Header>
                         <Segment padded inverted>
 
-                            
-
-                                <Droppable droppableId='droppable' direction="horizontal">
-                                    {(provided, snapshot) => (
-                                        <Container2
-                                            innerRef={provided.innerRef}
-                                            isDraggingOver={
-                                                snapshot.isDraggingOver
-                                            }>
-                                            {this.state.droppable.length
-                                                ? this.state.droppable.map(
-                                                    (item, index) => (
-                                                        <Draggable
-                                                            key={item.id}
-                                                            draggableId={item.id}
-                                                            index={index}>
-                                                            {(
-                                                                provided,
-                                                                snapshot
-                                                            ) => (
-                                                                <Item
-                                                                    innerRef={
-                                                                        provided.innerRef
-                                                                    }
+                            <Droppable droppableId='droppable' direction="horizontal">
+                                {(provided, snapshot) => (
+                                    <Container2
+                                        innerRef={provided.innerRef}
+                                        isDraggingOver={
+                                            snapshot.isDraggingOver
+                                        }>
+                                        {this.state.droppable.length
+                                            ? this.state.droppable.map(
+                                                (item, index) => (
+                                                    <Draggable
+                                                        key={item.id}
+                                                        draggableId={item.id}
+                                                        index={index}>
+                                                        {(
+                                                            provided,
+                                                            snapshot
+                                                        ) => (
+                                                            <React.Fragment>
+                                                                <Char
+                                                                    provided={provided}
+                                                                    /*
+                                                                    innerRef={provided.innerRef}
                                                                     {...provided.draggableProps}
-                                                                    isDragging={
-                                                                        snapshot.isDragging
-                                                                    }
                                                                     {...provided.dragHandleProps}
-                                                                    style={
-                                                                        provided
-                                                                            .draggableProps
-                                                                            .style
-                                                                    }>
-                                                                    {item.content}
-                                                                </Item>
-                                                            )}
-                                                        </Draggable>
-                                                    )
-                                                )
-                                                : !provided.placeholder && (
-                                                    <Notice>
-                                                        Drop items here
-                                                    </Notice>
-                                                )}
-                                            {provided.placeholder}
-                                        </Container2>
-                                    )}
-                                </Droppable>
+                                                                    */
+                                                                    isDragging={snapshot.isDragging}
+                                                                >
+                                                                    {item.text}
+                                                                </Char>
 
+                                                                {/*
+                                                                    <Item
+                                                                        innerRef={provided.innerRef}
+                                                                        {...provided.draggableProps}
+                                                                        isDragging={snapshot.isDragging}
+                                                                        {...provided.dragHandleProps}
+                                                                        style={provided.draggableProps.style}
+                                                                        >
+                                                                        {item.content}
+                                                                    </Item>
+                                                                */}
+                                                            </React.Fragment>
+                                                        )}
+                                                    </Draggable>
+                                                )
+                                            )
+                                            : !provided.placeholder && (
+                                                <Notice>
+                                                    Drop items here
+                                                </Notice>
+                                            )}
+                                        {provided.placeholder}
+                                    </Container2>
+                                )}
+                            </Droppable>
 
                         </Segment>
+
+                        <Segment>
+                            Poubelle
+                            <Droppable droppableId='trashable'>
+                                {(provided, snapshot) => (
+                                        <Container2
+                                            style={{height: '50px'}}
+                                            innerRef={provided.innerRef}>
+                                            {provided.placeholder}
+                                        </Container2>
+                                )}
+                            </Droppable>
+                        </Segment>
+
                         <Container textAlign='right'>
                             <Button basic color='red'>Clear Selection</Button>
                         </Container>

@@ -27,17 +27,7 @@ class CharClone extends Component {
 
     render() {
         return(
-            <div
-                className="char"
-                ref={this.props.provided.innerRef}
-                {...this.props.provided.draggableProps}
-                {...this.props.provided.dragHandleProps}
-                style={this.props.style}
-                ref={this.props.provided.innerRef}
-                style={
-                    this.props.provided.draggableProps
-                        .style
-                }>
+            <div className="charClone">
                 {this.props.children}
             </div>
         );

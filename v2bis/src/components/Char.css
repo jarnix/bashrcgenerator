@@ -1,4 +1,4 @@
-.char {
+.char, .charClone {
     user-select: none;
     padding: 0.5rem;
     margin: 0 0 0.5rem 0;
