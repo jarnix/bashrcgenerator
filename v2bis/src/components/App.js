@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { v4 as uuid } from 'uuid';
 import styled from 'styled-components';
-import { Container, Button, Icon, Menu, Header, Segment } from 'semantic-ui-react';
+import { Container, Button, Icon, Menu, Header, Segment, Grid, GridRow, GridColumn } from 'semantic-ui-react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Char from './Char';
 import CharClone from './CharClone';
@@ -52,19 +52,21 @@ const remove = (droppableElements, indexToRemove) => {
 
 const List = styled.div`
     display:flex;
+    flex-wrap: nowrap;
     width: 100%;    
     border: 1px ${props => (props.isDraggingOver ? 'dashed #FFF' : 'solid #000')};
     padding: 0.5rem 0.5rem 0;
     border-radius: 3px;
     font-family: sans-serif;
-    flex-wrap: wrap;
 `;
 
 const Kiosk = styled(List)`
-    
+    display:flex;
+    flex-wrap: wrap;
 `;
 
 const Container2 = styled(List)`
+    display:flex;
     flex-wrap: nowrap;
 `;
 
@@ -83,7 +85,7 @@ const Notice = styled.div`
 const ITEMS = [
     { "id": uuid(), "text": "hostnameShort", "desc": "hostname (short)", "html": "mycomputer", "code": "\\h" },
     { "id": uuid(), "text": "hostnameFull", "desc": "hostname (full)", "html": "mycomputer.example", "code": "\\H" },
-    { "id": uuid(), "text": "username", "desc": "username", "html": "mario", "code": "\\u" },
+    { "id": uuid(), "text": "username", "desc": "username", "html": "username", "code": "\\u" },
     { "id": uuid(), "text": "shellName", "desc": "shell name", "html": "bash", "code": "\\v" },
     { "id": uuid(), "text": "terminal", "desc": "terminal", "html": "ttys02", "code": "\\l" },
     { "id": uuid(), "text": "currentDirectory", "desc": "directory", "html": "/usr/local/src", "code": "\\w" },
@@ -91,7 +93,6 @@ const ITEMS = [
     { "id": uuid(), "text": "timeShort", "desc": "time-short (HH:MM)", "html": "14:23", "code": "\\A" },
     { "id": uuid(), "text": "timeLong", "desc": "time with seconds (HH:MM:SS)", "html": "14:23:52", "code": "\\t" },
     { "id": uuid(), "text": "timeAMPM", "desc": "time (HH:MM)", "html": "07:23 AM", "code": "\\@" },
-    { "id": uuid(), "text": "timeAMPMs", "desc": "time with seconds 12 hours (HH:MM:SS)", "html": "02:23:52", "code": "\\T" },
     { "id": uuid(), "text": "timeDate", "desc": "date (Day Month Date)", "html": "Mon Feb 22", "code": "\\d" },
     { "id": uuid(), "text": "exitStatus", "desc": "exit status", "html": "0", "code": "\\$?" },
     { "id": uuid(), "text": "charGreaterThan", "desc": ">", "html": ">", "code": ">" },
@@ -126,23 +127,19 @@ class App extends Component {
     };
 
     componentDidUpdate() {
-        console.log("update", this.state);
+
     }
 
     onDragEnd = result => {
         const { source, destination } = result;
 
-        console.log('==> result', result);
-
         // dropped outside the list
         if (!destination) {
-            console.log("ici pour poubelle", source.index);            
             this.setState({
                 droppable: remove(this.state.droppable, source.index)
             })
         }
         else if (destination.droppableId === 'trashable' && source.droppableId === 'droppable') {
-            console.log("ici pour poubelle", source.index);            
             this.setState({
                 droppable: remove(this.state.droppable, source.index)
             })
@@ -156,10 +153,8 @@ class App extends Component {
                             destination.index
                         )
                     });
-                    console.log('destination droppableId', this.state);
                     break;
                 case 'ITEMS':
-                    console.log('ITEMS');
                     this.setState({
                         droppable: copy(
                             ITEMS,
@@ -170,7 +165,6 @@ class App extends Component {
                     });
                     break;
                 default:
-                    console.log('default, move');
                     this.setState(
                         move(
                             this.state[source.droppableId],
@@ -179,16 +173,11 @@ class App extends Component {
                             destination
                         )
                     );
-                    console.log('default', this.state);
                     break;
             }
-            console.log("state", this.state);
         }
     };
 
-
-    // Normally you would want to split things out into separate components.
-    // But in this example everything is just done in one place for simplicity
     render() {
         // console.log(this.state);
         return (
@@ -215,10 +204,9 @@ class App extends Component {
 
                 <DragDropContext onDragEnd={this.onDragEnd}>
 
-
                     <Segment>
 
-                        <Header as='h5'><Icon size='tiny' name='folder open' />Available Elements</Header>
+                        <Header as='h5'><Icon size='tiny' name='folder open' />Available Elements. Drop them in your selection.</Header>
                         <Segment padded inverted>
 
                             <Droppable droppableId="ITEMS" isDropDisabled={true}>
@@ -235,33 +223,13 @@ class App extends Component {
                                                     <React.Fragment>
                                                         <Char
                                                             provided={provided}
-                                                            /*
-                                                            innerRef={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            */
                                                             isDragging={snapshot.isDragging}
                                                         >
-                                                            {item.desc}
+                                                            {item.html}
                                                         </Char>
-
-                                                        {/*
-                                                        <Item
-                                                            innerRef={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            isDragging={snapshot.isDragging}
-                                                            style={
-                                                                provided.draggableProps
-                                                                    .style
-                                                            }>
-                                                            {item.content}
-                                                        </Item>
-                                                        */}
                                                         {snapshot.isDragging && (
-                                                            <CharClone>{item.desc}</CharClone>
+                                                            <CharClone>{item.html}</CharClone>
                                                         )}
-                                                        {/* <CharClone>{item.content}</CharClone> */}
                                                     </React.Fragment>
                                                 )}
                                             </Draggable>
@@ -273,12 +241,13 @@ class App extends Component {
                     </Segment>
 
                     <Segment>
-                        <Header as='h5'><Icon size='tiny' name='shopping cart' />Your Selection</Header>
+                        <Header as='h5'><Icon size='tiny' name='shopping cart' />Your Selection. Reorder and style your elements.</Header>
                         <Segment padded inverted>
 
-                            <Droppable droppableId='droppable' direction="horizontal">
+                            <Droppable droppableId='droppable' direction='horizontal'>
                                 {(provided, snapshot) => (
                                     <Container2
+                                        style={{ overflowX: 'scroll' }}
                                         innerRef={provided.innerRef}
                                         isDraggingOver={
                                             snapshot.isDraggingOver
@@ -294,31 +263,12 @@ class App extends Component {
                                                             provided,
                                                             snapshot
                                                         ) => (
-                                                            <React.Fragment>
-                                                                <Char
-                                                                    provided={provided}
-                                                                    /*
-                                                                    innerRef={provided.innerRef}
-                                                                    {...provided.draggableProps}
-                                                                    {...provided.dragHandleProps}
-                                                                    */
-                                                                    isDragging={snapshot.isDragging}
-                                                                >
-                                                                    {item.desc}
-                                                                </Char>
-
-                                                                {/*
-                                                                    <Item
-                                                                        innerRef={provided.innerRef}
-                                                                        {...provided.draggableProps}
-                                                                        isDragging={snapshot.isDragging}
-                                                                        {...provided.dragHandleProps}
-                                                                        style={provided.draggableProps.style}
-                                                                        >
-                                                                        {item.content}
-                                                                    </Item>
-                                                                */}
-                                                            </React.Fragment>
+                                                            <Char
+                                                                provided={provided}
+                                                                isDragging={snapshot.isDragging}
+                                                            >
+                                                                {item.html}
+                                                            </Char>
                                                         )}
                                                     </Draggable>
                                                 )
@@ -335,22 +285,39 @@ class App extends Component {
 
                         </Segment>
 
-                            
-                                <i className="trash alternate outline icon"></i>
-                                <Droppable droppableId='trashable'>
-                                    {(provided, snapshot) => (
+
+
+                        <Grid columns='three' divided>
+                            <Grid.Row>
+                                <Grid.Column>
+                                </Grid.Column>
+                                <Grid.Column>
+
+                                    <Droppable droppableId='trashable'>
+                                        {(provided, snapshot) => (
                                             <Container2
-                                                style={{height: '50px'}}
+                                                style={{ height: '35px' }}
                                                 innerRef={provided.innerRef}>
                                                 {provided.placeholder}
+                                                <div style={{ position: 'fixed' }}>
+                                                    <i className="trash alternate outline icon"></i>Drop here to remove an element
+                                                </div>
                                             </Container2>
-                                    )}
-                                </Droppable>
-                            
-                        
-                        
-                            <Button basic color='red'>Clear Selection</Button>
-                        
+                                        )}
+                                    </Droppable>
+                                </Grid.Column>
+                                <Grid.Column>
+                                    <Button basic color='red'>Clear Selection</Button>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+
+
+
+
+
+
+
                     </Segment>
 
                 </DragDropContext>
@@ -372,7 +339,7 @@ class App extends Component {
                 </Segment>
 
 
-            </Container>
+            </Container >
         );
     }
 }

@@ -1,17 +1,32 @@
-.char, .charClone {
-    user-select: none;
-    padding: 0.35rem;
-    margin: 0 0 0.2rem 0;
-    align-items: flex-start;
-    align-content: flex-start;
-    background-color:white;
-    line-height: 1.2;
-    border-radius: 3px;
-    color: black;
-    border: 1px solid #000;
-    font-size: 1rem;
+.char,
+.charClone {
+  user-select: none;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  padding: 0.4rem;
+  margin: 0 0 0.3rem 0.3rem;
+  align-items: flex-start;
+  align-content: flex-start;
+  background-color: white;
+  line-height: 1.2;
+  border-radius: 3px;
+  color: black;
+  border: 1px solid #000;
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  display: flex;
+}
+
+.char div {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  color: black;
+  padding-left: 4px;
+  padding-right: 2px;
 }
 
 .charClone + div {
-    display: none !important;
+  display: none !important;
 }
