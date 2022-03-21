@@ -27,6 +27,15 @@
   padding-right: 2px;
 }
 
+.charClone div {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  color: black;
+  padding-left: 4px;
+  padding-right: 2px;
+}
+
 .charClone + div {
   display: none !important;
 }

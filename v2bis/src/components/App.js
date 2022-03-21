@@ -132,18 +132,22 @@ class App extends Component {
 
     onDragEnd = result => {
         const { source, destination } = result;
+        console.log('source = ', source.droppableId, 'dest = ', destination.droppableId);
 
         // dropped outside the list
         if (!destination) {
+            console.log('source0 = ', source.droppableId, 'dest0 = ', destination.droppableId);
             this.setState({
                 droppable: remove(this.state.droppable, source.index)
             })
         }
         else if (destination.droppableId === 'trashable' && source.droppableId === 'droppable') {
+            console.log('source1 = ', source.droppableId, 'dest1 = ', destination.droppableId);
             this.setState({
                 droppable: remove(this.state.droppable, source.index)
             })
-        } else {
+        } else if (destination.droppableId !== 'trashable') {
+            console.log('source2 = ', source.droppableId, 'dest2 = ', destination.droppableId);
             switch (source.droppableId) {
                 case destination.droppableId:
                     this.setState({
@@ -225,10 +229,12 @@ class App extends Component {
                                                             provided={provided}
                                                             isDragging={snapshot.isDragging}
                                                         >
-                                                            {item.html}
+                                                            {item.desc}
                                                         </Char>
                                                         {snapshot.isDragging && (
-                                                            <CharClone>{item.html}</CharClone>
+                                                            <CharClone>
+                                                                {item.desc}
+                                                            </CharClone>
                                                         )}
                                                     </React.Fragment>
                                                 )}
@@ -267,7 +273,7 @@ class App extends Component {
                                                                 provided={provided}
                                                                 isDragging={snapshot.isDragging}
                                                             >
-                                                                {item.html}
+                                                                {item.desc}
                                                             </Char>
                                                         )}
                                                     </Draggable>
