@@ -1,0 +1,9 @@
+.palette > div {
+  clear: both;
+}
+
+.palette > div div {
+  float: left;
+  width: 10px;
+  height: 10px;
+}

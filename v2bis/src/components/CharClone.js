@@ -29,7 +29,7 @@ class CharClone extends Component {
     render() {
         return (
             <div className="charClone">
-                <Icon color='orange' name='expand' />
+                <Icon color='red' name='crosshairs' />
                 <div>{this.props.children}</div>
             </div>
         );
